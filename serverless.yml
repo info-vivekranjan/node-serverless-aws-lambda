@@ -1,0 +1,106 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: infovivekranjan
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: first-aws-lambda
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: first-aws-lambda
+
+provider:
+  name: aws
+  runtime: nodejs24.x
+  region: us-east-1
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:Scan
+            - dynamodb:Query
+          Resource:
+            # 1. Access to the main table
+            - Fn::GetAtt:
+                - UsersTable
+                - Arn
+            # 2. Access to all indexes on this table
+            - Fn::Join:
+                - "/"
+                - - Fn::GetAtt: [UsersTable, Arn]
+                  - "index/*"
+
+functions:
+  createUser:
+    handler: src/handlers/users.createUser
+    events:
+      - httpApi:
+          path: /users
+          method: post
+
+  getUser:
+    handler: src/handlers/users.getUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: get
+
+  updateUser:
+    handler: src/handlers/users.updateUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: put
+
+  deleteUser:
+    handler: src/handlers/users.deleteUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: delete
+
+  getAllUser:
+    handler: src/handlers/users.listUsers
+    events:
+      - httpApi:
+          path: /users/list
+          method: get
+
+  getUserByEmail:
+    handler: src/handlers/users.getUserByEmail
+    events:
+      - httpApi:
+          path: /users
+          method: get
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+
+      Properties:
+        TableName: users
+
+        BillingMode: PAY_PER_REQUEST
+
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+
+          - AttributeName: email
+            AttributeType: S
+
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+
+        GlobalSecondaryIndexes:
+          - IndexName: EmailIndex
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+
+            Projection:
+              ProjectionType: ALL

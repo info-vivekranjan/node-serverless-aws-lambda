@@ -16,6 +16,18 @@ This template demonstrates how to make a simple HTTP API with Node.js running on
 
 This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
 
+## Endpoints
+
+```
+endpoints:
+  POST - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users
+  GET - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users/{id}
+  PUT - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users/{id}
+  DELETE - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users/{id}
+  GET - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users/list
+  GET - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users
+```
+
 ## Usage
 
 ### Deployment

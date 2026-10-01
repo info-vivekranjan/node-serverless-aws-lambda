@@ -20,12 +20,22 @@ This template does not include any kind of persistence (database). For more adva
 
 ```
 endpoints:
-  POST - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users
-  GET - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users/{id}
-  PUT - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users/{id}
-  DELETE - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users/{id}
-  GET - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users/list
-  GET - https://uv8rikkxqg.execute-api.us-east-1.amazonaws.com/users
+  POST - https://8qwxiahlk0.execute-api.us-east-1.amazonaws.com/users
+  GET - https://8qwxiahlk0.execute-api.us-east-1.amazonaws.com/users/{id}
+  PUT - https://8qwxiahlk0.execute-api.us-east-1.amazonaws.com/users/{id}
+  DELETE - https://8qwxiahlk0.execute-api.us-east-1.amazonaws.com/users/{id}
+  GET - https://8qwxiahlk0.execute-api.us-east-1.amazonaws.com/users/list
+  GET - https://8qwxiahlk0.execute-api.us-east-1.amazonaws.com/users
+  POST - https://8qwxiahlk0.execute-api.us-east-1.amazonaws.com/orders
+functions:
+  createUser: first-aws-lambda-dev-createUser
+  getUser: first-aws-lambda-dev-getUser
+  updateUser: first-aws-lambda-dev-updateUser
+  deleteUser: first-aws-lambda-dev-deleteUser
+  getAllUser: first-aws-lambda-dev-getAllUser
+  getUserByEmail: first-aws-lambda-dev-getUserByEmail
+  createOrder: first-aws-lambda-dev-createOrder
+  processOrder: first-aws-lambda-dev-processOrder
 ```
 
 ## Usage
